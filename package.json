@@ -1,10 +1,12 @@
 {
-  "name": "agutils",
-  "version": "0.0.1",
+  "name": "magutils",
+  "version": "0.1.0",
   "description": "Type-safe utilities",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": [ "dist" ],
+  "files": [
+    "dist"
+  ],
   "repository": "git@github.com:Angeart/agutils.git",
   "author": "Angeart <hinari.iris@gmail.com>",
   "license": "MIT",
