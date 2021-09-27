@@ -50,9 +50,9 @@ export type Result<T, Err = SimpleError> = Coproduct<{
   Err: { value: Err }
 }>
 
-export function Ok(): Result<void, never>
-export function Ok<T>(value: T): Result<T, never>
-export function Ok<T>(value?: T): Result<T, never> {
+export function Ok(): Individual<Result<void, never>, 'Ok'>
+export function Ok<T>(value: T): Individual<Result<T, never>, 'Ok'>
+export function Ok<T>(value?: T): Individual<Result<T, never>, 'Ok'> {
   return { type: 'Ok', value: value! }
 }
 
@@ -68,7 +68,7 @@ export function isErr<R extends Result<any, any>>(
   return result.type === 'Err'
 }
 
-export function Err<Err = SimpleError>(err: Err): Result<never, Err> {
+export function Err<Err = SimpleError>(err: Err): Individual<Result<never, Err>, 'Err'> {
   return { type: 'Err', value: err }
 }
 
