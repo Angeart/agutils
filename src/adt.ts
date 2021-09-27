@@ -47,7 +47,7 @@ export type SimpleError = {
 
 export type Result<T, Err = SimpleError> = Coproduct<{
   Ok: { value: T }
-  Err: { value: Err }
+  Err: { err: Err }
 }>
 
 export function Ok(): Individual<Result<void, never>, 'Ok'>
@@ -69,7 +69,7 @@ export function isErr<R extends Result<any, any>>(
 }
 
 export function Err<Err = SimpleError>(err: Err): Individual<Result<never, Err>, 'Err'> {
-  return { type: 'Err', value: err }
+  return { type: 'Err', err }
 }
 
 export function pickByKey<T, K extends keyof T>(v: T, keys: K[]) {
