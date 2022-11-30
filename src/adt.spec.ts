@@ -1,4 +1,5 @@
-import { Err, isErr, isOk, Ok } from "."
+import { Err, isErr, isOk, Ok } from ".";
+import { Coproduct, match } from './adt';
 
 describe("Result", () => {
   describe("ok", () => {
@@ -33,5 +34,13 @@ describe("Result", () => {
       expect(okCb.mock.calls[0][0]).toBe(10)
       expect(errCb.mock.calls.length).toBe(0)
     })
+  })
+})
+
+describe('Coproduct', () => {
+  it('Basic', () => {
+    const value = { type: 'Hoge', v: 'Test' } as Coproduct<{ Hoge: { v: string }, Fuga: { v: number } }>
+    const res = match(value, { Hoge: v => v.v, Fuga: v => v.v })
+    expect(res).toBe('Test')
   })
 })

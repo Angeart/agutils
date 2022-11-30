@@ -14,12 +14,14 @@ export type Match<TCoproduct extends Record<'type', keyof any>, Tag> = Omit<
   'type'
 >
 
-export function match<TCoproduct extends Record<'type', keyof any>, TOut>(
+type Mapping<TCoproduct extends Record<'type', keyof any>> = {
+  [K in TCoproduct['type']]: (param: Match<TCoproduct, K>) => any
+}
+
+export function match<TCoproduct extends Record<'type', keyof any>, TPattern extends Mapping<TCoproduct>>(
   value: TCoproduct,
-  patterns: {
-    [K in TCoproduct['type']]: (param: Match<TCoproduct, K>) => TOut
-  }
-): TOut {
+  patterns: TPattern
+): ReturnType<TPattern[keyof TPattern]> {
   const tag: TCoproduct['type'] = value.type
   return patterns[tag](value as any)
 }
